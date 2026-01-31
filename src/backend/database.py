@@ -10,6 +10,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['mergington_high']
 activities_collection = db['activities']
 teachers_collection = db['teachers']
+banner_collection = db['banner']
 
 # Methods
 
@@ -49,6 +50,13 @@ def init_database():
         for teacher in initial_teachers:
             teachers_collection.insert_one(
                 {"_id": teacher["username"], **teacher})
+
+    # Initialize banner configuration if empty
+    if banner_collection.count_documents({}) == 0:
+        banner_collection.insert_one({
+            "_id": "announcement_banner",
+            **initial_banner
+        })
 
 
 # Initial database if empty
@@ -207,3 +215,10 @@ initial_teachers = [
         "role": "admin"
     }
 ]
+
+# Initial banner configuration
+initial_banner = {
+    "enabled": True,
+    "message": "📢 Activity registration is open until the end of the month. Don't miss your spot!",
+    "end_date": "2026-01-31T23:59:59Z"  # ISO 8601 format
+}
