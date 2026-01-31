@@ -665,10 +665,12 @@ footer {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Announcement banner */
 .announcement-banner {
   background-color: var(--info);
   color: white;
   text-align: center;
   padding: 15px;
   font-weight: bold;
+  margin: -12px -12px 15px -12px;
 }
