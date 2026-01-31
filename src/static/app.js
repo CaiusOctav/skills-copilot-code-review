@@ -1,4 +1,26 @@
+// Announcement banner configuration
+const ANNOUNCEMENT_CONFIG = {
+  message: "📢 Activity registration is open until the end of the month. Don't miss your spot!",
+  deadline: "2026-01-31T23:59:59", // ISO 8601 format - set to end of January
+  enabled: true
+};
+
 document.addEventListener("DOMContentLoaded", () => {
+  // Manage announcement banner visibility
+  const announcementBanner = document.getElementById("announcement-banner");
+  if (announcementBanner && ANNOUNCEMENT_CONFIG.enabled) {
+    const deadline = new Date(ANNOUNCEMENT_CONFIG.deadline);
+    const now = new Date();
+    
+    if (now > deadline) {
+      // Hide banner if deadline has passed
+      announcementBanner.style.display = "none";
+    } else {
+      // Update banner message from configuration
+      announcementBanner.textContent = ANNOUNCEMENT_CONFIG.message;
+    }
+  }
+
   // DOM elements
   const activitiesList = document.getElementById("activities-list");
   const messageDiv = document.getElementById("message");
