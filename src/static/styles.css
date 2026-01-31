@@ -665,6 +665,7 @@ footer {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Announcement banner */
 .announcement-banner {
   background-color: var(--info);
   color: white;
