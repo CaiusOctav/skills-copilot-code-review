@@ -672,5 +672,5 @@ footer {
   text-align: center;
   padding: 15px;
   font-weight: bold;
-  margin: -12px -12px 15px -12px;
+  margin: -12px -12px 15px -12px; /* Negative margins counteract body padding for full-width display, bottom margin adds spacing */
 }
