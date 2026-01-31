@@ -49,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchAndDisplayBanner() {
     try {
       const response = await fetch("/banner");
+      if (!response.ok) {
+        throw new Error(`Failed to fetch banner: ${response.status}`);
+      }
       const bannerConfig = await response.json();
 
       // Check if banner is enabled

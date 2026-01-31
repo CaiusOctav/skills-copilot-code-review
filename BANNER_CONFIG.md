@@ -40,3 +40,4 @@ The banner configuration is stored in MongoDB in the `banner` collection with th
 ## Updating the Banner
 
 To update the banner, simply modify the document in the MongoDB `banner` collection. No code deployment is needed.
+# Test
