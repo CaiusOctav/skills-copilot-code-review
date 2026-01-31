@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const activityInput = document.getElementById("activity");
   const closeRegistrationModal = document.querySelector(".close-modal");
+  const announcementBanner = document.getElementById("announcement-banner");
 
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
@@ -43,6 +44,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Authentication state
   let currentUser = null;
+
+  // Function to fetch and display announcement banner
+  async function fetchAndDisplayBanner() {
+    try {
+      const response = await fetch("/banner");
+      if (!response.ok) {
+        throw new Error(`Failed to fetch banner: ${response.status}`);
+      }
+      const bannerConfig = await response.json();
+
+      // Check if banner is enabled
+      if (!bannerConfig.enabled) {
+        announcementBanner.classList.add("hidden");
+        return;
+      }
+
+      // Check if banner has expired
+      if (bannerConfig.end_date) {
+        const endDate = new Date(bannerConfig.end_date);
+        const now = new Date();
+        
+        if (now > endDate) {
+          announcementBanner.classList.add("hidden");
+          return;
+        }
+      }
+
+      // Display the banner
+      announcementBanner.textContent = bannerConfig.message;
+      announcementBanner.classList.remove("hidden");
+    } catch (error) {
+      console.error("Error fetching banner configuration:", error);
+      // Hide banner on error
+      announcementBanner.classList.add("hidden");
+    }
+  }
 
   // Time range mappings for the dropdown
   const timeRanges = {
@@ -865,4 +902,5 @@ document.addEventListener("DOMContentLoaded", () => {
   checkAuthentication();
   initializeFilters();
   fetchActivities();
+  fetchAndDisplayBanner();
 });
